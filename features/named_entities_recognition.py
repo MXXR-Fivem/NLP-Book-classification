@@ -4,9 +4,6 @@
 # -Filtrer les entitées par label( PERSON,GPE,LOC)
 # -Retourner le dictionnaire exemple : {"characteres" : [JEAN], "locations":[PARIS]}
 
-import spacy
-from spacy.cli import download
-
 from .components.get_book_content import get_book_content
 
 import spacy

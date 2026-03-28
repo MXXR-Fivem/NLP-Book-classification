@@ -40,7 +40,7 @@ def argument_validation(
                 bad_flags.append(flag[0])
 
         allowed_commands = [
-            cmd for cmd, data in args_action.items() if set(bad_flags).issubset(data['sub_args'])
+            cmd for cmd, data in args_action.items() if set(bad_flags).issubset(data.get('sub_args', []))
         ]
 
         if bad_flags:

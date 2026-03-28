@@ -208,8 +208,8 @@ def topic_modeling(book_id: int, book_content: str | None = None):
         book_content=book_content
     )
 
-    result = ''
+    result = {}
     for section_num, words in topics.items():
-        result += (f'\n=== Section {section_num} ===\n' + ', '.join(words) + '\n')
+        result[section_num] = list(words)
 
     return result

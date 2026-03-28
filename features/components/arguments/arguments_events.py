@@ -27,7 +27,7 @@ def arguments_events(
         if not getattr(registered_args, arg):
             continue
 
-        if hasattr(data, 'sub_args') and 'book_id' in data['sub_args']:
+        if data.get('sub_args', []) and 'book_id' in data['sub_args']:
             result = get_cache([
                 getattr(registered_args, sub_arg)
                 for sub_arg in data['sub_args']
@@ -39,13 +39,13 @@ def arguments_events(
                 return
 
         result = data['action'](
-            *([getattr(registered_args, sub_arg) for sub_arg in data['sub_args']] if hasattr(data, 'sub_args') else [])
+            *([getattr(registered_args, sub_arg) for sub_arg in data['sub_args']] if data.get('sub_args', []) else [])
         )
 
         if result and not isinstance(result, requests.Response):
             print(result)
 
-            if hasattr(data, 'sub_args') and data.get('use_cache'):
+            if data.get('sub_args', []) and data.get('use_cache', False):
                 set_cache(
                     [
                         getattr(registered_args, sub_arg)
