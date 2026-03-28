@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 import pandas as pd
 import streamlit as st
@@ -16,8 +17,44 @@ st.write(
 df = pd.read_csv(get_offline_catalogue())
 
 
-authors = df['Authors'].dropna().str.split(';').explode().str.strip()
-authors = sorted(authors)
+def normalize_author(raw_author: str) -> str:
+    """
+    Normalize author name to download author's books efficiently
+
+    ## Parameters
+        **raw_author**: Author full name
+
+    ## Returns
+        Author normalized name : Lastname Firstname
+    """
+    if not isinstance(raw_author, str):
+        return ''
+
+    cleaned = raw_author.strip()
+    if not cleaned:
+        return ''
+
+    parts = [part.strip() for part in cleaned.split(',') if part.strip()]
+    if len(parts) >= 2:
+        last_name = parts[0]
+        first_name = re.sub(r'\b\d{4}(?:-\d{4})?\b', '', parts[1]).strip()
+        name = f"{last_name} {first_name}".strip()
+    else:
+        name = parts[0]
+
+    name = re.sub(r'\b\d{4}(?:-\d{4})?\b', '', name).strip()
+    name = re.sub(r'\s+', ' ', name)
+    return name
+
+
+authors_series = df['Authors'].dropna().str.split(';').explode().str.strip()
+authors = (
+    authors_series.map(normalize_author)
+    .loc[lambda series: series != '']
+    .drop_duplicates()
+    .sort_values()
+    .tolist()
+)
 categories = (
     df['Bookshelves']
     .dropna()
