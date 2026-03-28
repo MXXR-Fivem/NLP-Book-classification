@@ -9,14 +9,14 @@ from spacy.cli import download
 
 from .components.get_book_content import get_book_content
 
-try:
-    nlp = spacy.load(
-        'en_core_web_md'
-    )  # chargement du model (il sait reconnaitre les mots, les types ,les entitiés )
-except OSError:
-    download('en_core_web_md')
-    nlp = spacy.load('en_core_web_md')
+import spacy
+import streamlit as st
 
+@st.cache_resource
+def load_nlp():
+    return spacy.load("en_core_web_md")
+
+nlp = load_nlp()
 
 def named_entities(book_id: int, book_content: str | None = None) -> dict[str, list]:
     """
