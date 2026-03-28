@@ -1,0 +1,12 @@
+*.python-version
+*.pdf
+__pycache__/
+.ruff_cache/
+venv/
+vev/
+*.DS_Store
+Alice_Bootstrap/*/*.csv
+alice_assets/books/*.txt
+alice_assets/plots/*.png
+alice_assets/covers/*.png
+alice_assets/cache/alice_cache.csv
