@@ -30,15 +30,15 @@ st.markdown(
 st.divider()
 
 FEATURES = [
-    ('Info', 'Métadonnées du livre'),
-    ('Résumé', 'Résumé généré par IA'),
-    ('Div. lexicale', 'Statistiques de vocabulaire'),
-    ('Topics', 'Modélisation thématique LDA'),
-    ('Entités', "Reconnaissance d'entités nommées"),
-    ('Fiche livre', 'Carte récapitulative'),
-    ('Couverture', 'Image de couverture'),
-    ('Similaires', 'Livres proches par embeddings'),
-    ('Télécharger', 'Téléchargement par lot'),
+    ('Info', 'Book metadata'),
+    ('Summary', 'Extractive summary'),
+    ('Lexical diversity', 'Vocabulary statistics'),
+    ('Topics', 'Topics modelisation by LDA'),
+    ('Entities', "Fetch entities"),
+    ('Book cqrd', 'Presentative card'),
+    ('Cover', 'Book cover'),
+    ('Similarities', 'Get similar books by embeding'),
+    ('Download', 'Download by author / category'),
 ]
 
 cols = st.columns(2)
